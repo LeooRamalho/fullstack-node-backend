@@ -1,10 +1,27 @@
+import "reflect-metadata"
 import express from "express"
 import bodyParser from "body-parser"
 import cors from "cors"
-import { AppDataSource } from "./data-source"
 import routes from "./routes"
+import { DataSource } from "typeorm"
+require("dotenv").config()
 
 //Initialize DB
+export const AppDataSource = new DataSource({
+    name: "default",
+    type: "postgres",
+    host: process.env.DB_HOST,
+    port: parseInt(process.env.DB_PORT),
+    username: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_USER,
+    synchronize: true,
+    logging: false,
+    entities: ["./src/entity/*"],
+    migrations: [],
+    subscribers: [],
+})
+
 AppDataSource.initialize().then(async () => {
 
     // create express app

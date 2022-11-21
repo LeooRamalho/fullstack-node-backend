@@ -1,4 +1,4 @@
-import { AppDataSource } from "../data-source"
+import { AppDataSource } from "../"
 import { NextFunction, Request, Response } from "express"
 import { User } from "../entity/User"
 
